@@ -5,14 +5,15 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
 const production = !process.env.ROLLUP_WATCH;
+const web = process.env.WEB;
 
 export default {
     input: 'src/main.js',
     output: {
-        sourcemap: true,
+        sourcemap: web ? 'inline' : true,
         format: 'iife',
         name: 'app',
-        file: 'public/build/bundle.js'
+        file: web ? undefined : 'public/build/bundle.js'
     },
     plugins: [
         svelte({
@@ -20,9 +21,9 @@ export default {
             dev: !production,
             // we'll extract any component CSS out into
             // a separate file - better for performance
-            css: css => {
+            css: web ? false : (css => {
                 css.write('public/build/bundle.css');
-            }
+            })
         }),
 
         // If you have external dependencies installed from
