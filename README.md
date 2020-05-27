@@ -1,4 +1,4 @@
-My custom svelte templates. Probably the most interesting thing is the `npm run web` command that (on a Mac) copies the compiled app JavaScript into a form that can be pasted directly in a web console.
+My custom svelte templates. Probably the most interesting difference is the `npm run web` command that (on a Mac) copies the compiled app JavaScript into a form that can be pasted directly in a web console.
 
 
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
