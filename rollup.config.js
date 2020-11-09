@@ -29,7 +29,6 @@ function serve() {
 }
 
 export default {
-<<<<<<< HEAD
     input: 'src/main.js',
     output: {
         sourcemap: web ? 'inline' : true,
