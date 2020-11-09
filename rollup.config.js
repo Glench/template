@@ -7,7 +7,29 @@ import { terser } from 'rollup-plugin-terser';
 const production = !process.env.ROLLUP_WATCH;
 const web = process.env.WEB;
 
+function serve() {
+	let server;
+	
+	function toExit() {
+		if (server) server.kill(0);
+	}
+
+	return {
+		writeBundle() {
+			if (server) return;
+			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+				stdio: ['ignore', 'inherit', 'inherit'],
+				shell: true
+			});
+
+			process.on('SIGTERM', toExit);
+			process.on('exit', toExit);
+		}
+	};
+}
+
 export default {
+<<<<<<< HEAD
     input: 'src/main.js',
     output: {
         sourcemap: web ? 'inline' : true,
@@ -53,20 +75,3 @@ export default {
         clearScreen: false
     }
 };
-
-function serve() {
-    let started = false;
-
-    return {
-        writeBundle() {
-            if (!started) {
-                started = true;
-
-                require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-                    stdio: ['ignore', 'inherit', 'inherit'],
-                    shell: true
-                });
-            }
-        }
-    };
-}
